@@ -5,13 +5,15 @@ import {
   Typography,
   Grid,
 } from "@material-ui/core";
-import styles from "./Cards.module.css";
+import styles from "./USCards.module.css";
 import CountUp from "react-countup";
 import cx from 'classnames';
 
-const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
-   
-  if (!confirmed) {
+const USCards = ({ USData: { positive, death, recovered, dateChecked} }) => {
+    
+    
+  if (!positive) {
+       
     return "Loading...";
   }
   return (
@@ -25,13 +27,13 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
             <Typography variant="h5">
               <CountUp
                 start={0}
-                end={confirmed.value}
+                end={positive}
                 duration={2.5}
                 separator=","
               />
             </Typography>
             <Typography color="textSecondary">
-              {new Date(lastUpdate).toDateString()}
+              {new Date(dateChecked).toDateString()}
             </Typography>
             <Typography variant="body2">
               Number of Active Cases of Covid19
@@ -46,13 +48,13 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
             <Typography variant="h5">
               <CountUp
                 start={0}
-                end={recovered.value}
+                end={recovered}
                 duration={2.5}
                 separator=","
               />
             </Typography>
             <Typography color="textSecondary">
-              {new Date(lastUpdate).toDateString()}
+              {new Date(dateChecked).toDateString()}
             </Typography>
             <Typography variant="body2">
               Number of Recovered Cases of Covid19
@@ -67,13 +69,13 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
             <Typography variant="h5">
               <CountUp
                 start={0}
-                end={deaths.value}
+                end={death}
                 duration={2.5}
                 separator=","
               />
             </Typography>
             <Typography color="textSecondary">
-              {new Date(lastUpdate).toDateString()}
+              {new Date(dateChecked).toDateString()}
             </Typography>
             <Typography variant="body2">
               Number of Deaths from Covid19
@@ -85,4 +87,4 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
   );
 };
 
-export default Cards;
+export default USCards;

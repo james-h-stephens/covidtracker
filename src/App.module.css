@@ -1,9 +1,19 @@
 body {
-  background-color: teal;
+  background-color: grey;
 }
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.logo {
+  width: 15%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1%;
+   
+  -webkit-filter: drop-shadow(20px 20px 2px #0B132B);
 }
