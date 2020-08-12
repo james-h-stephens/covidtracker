@@ -38,11 +38,15 @@ class App extends React.Component {
     this.setState({ data: fetchedData, country: country });
   };
   handleStateChange = async (state) => {
+    if(state.length === 0){
+
+      this.setState({ stateData: {}, currentState: ""});
+    }else {
     const normalizedState = state.toLowerCase();
     const fetchedDailyStateData = await fetchDailyStateData(normalizedState);
      
-    this.setState({ stateData: fetchedDailyStateData});
-    this.setState({currentState: normalizedState});
+    this.setState({ stateData: fetchedDailyStateData, currentState: normalizedState});
+    }
   };
   
   render() {
@@ -52,12 +56,12 @@ class App extends React.Component {
         <img className={styles.logo} src={CovidHeader} alt="covid data"></img>
         <h1>USA</h1>
         <USCards USData={USData} />
-        <USChart />
+        <StatePicker handleStateChange={this.handleStateChange} />
+        <USChart stateData={stateData} currentState={currentState}/>
         <h1>World</h1>
         <Cards data={data} />
         <CountryPicker handleCountryChange={this.handleCountryChange} />
         <Chart data={data} country={country} />
-        <StatePicker handleStateChange={this.handleStateChange} />
         <StateChart stateData={stateData} currentState={currentState}   />
         <a href="http://www.lukassaylor.com/">Lukas Saylor</a>
         <Typography>2020</Typography>

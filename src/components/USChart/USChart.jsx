@@ -3,7 +3,7 @@ import { fetchDailyUSData } from "../../api";
 import { Bar } from "react-chartjs-2";
 import styles from "./USChart.module.css";
 
-const USChart = () => {
+const USChart = ({ stateData, currentState }) => {
   const [dailyUSData, setDailyUSData] = useState([]);
 
   useEffect(() => {
@@ -12,15 +12,15 @@ const USChart = () => {
     };
     fetchUSAPI();
   }, []);
-  
-  
-  const barChartUSCases = (
+
+
+  const barChartUSCases = stateData.length ? (
     <Bar
       data={{
-        labels: dailyUSData.map(({ date }) => new Date(date).toDateString()),
+        labels: stateData.map(({ date }) => new Date(date).toDateString()),
         datasets: [
           {
-            data: dailyUSData.map(({ confirmed }) => confirmed),
+            data: stateData.map(({ confirmed }) => confirmed),
             label: "Infected",
             borderColor: "rgba(0, 255, 0, 1)",
             backgroundColor: "rgba(0, 255, 0, 1)",
@@ -31,15 +31,32 @@ const USChart = () => {
       options={{
         title: { display: true, text: `USA Cases` },
       }}
-    />
-  );
-  const barChartUSDeaths = (
+    />) : (
+      <Bar
+        data={{
+          labels: dailyUSData.map(({ date }) => new Date(date).toDateString()),
+          datasets: [
+            {
+              data: dailyUSData.map(({ confirmed }) => confirmed),
+              label: "Infected",
+              borderColor: "rgba(0, 255, 0, 1)",
+              backgroundColor: "rgba(0, 255, 0, 1)",
+              fill: true,
+            },
+          ],
+        }}
+        options={{
+          title: { display: true, text: `USA Cases` },
+        }}
+      />
+    );
+  const barChartUSDeaths = stateData.length ? (
     <Bar
       data={{
-        labels: dailyUSData.map(({ date }) => new Date(date).toDateString()),
+        labels: stateData.map(({ date }) => new Date(date).toDateString()),
         datasets: [
           {
-            data: dailyUSData.map(({ deaths }) => deaths),
+            data: stateData.map(({ deaths }) => deaths),
             label: "Deaths",
             borderColor: "red",
             backgroundColor: "rgba(255,0,0,1)",
@@ -51,15 +68,33 @@ const USChart = () => {
         title: { display: true, text: `USA Deaths` },
       }}
     />
-  );
+  ) : (
+      <Bar
+        data={{
+          labels: dailyUSData.map(({ date }) => new Date(date).toDateString()),
+          datasets: [
+            {
+              data: dailyUSData.map(({ deaths }) => deaths),
+              label: "Deaths",
+              borderColor: "red",
+              backgroundColor: "rgba(255,0,0,1)",
+              fill: true,
+            },
+          ],
+        }}
+        options={{
+          title: { display: true, text: `USA Deaths` },
+        }}
+      />
+    );
 
-  const barChartUSDailyCases = (
+  const barChartUSDailyCases = stateData.length ? (
     <Bar
       data={{
-        labels: dailyUSData.map(({ date }) => new Date(date).toDateString()),
+        labels: stateData.map(({ date }) => new Date(date).toDateString()),
         datasets: [
           {
-            data: dailyUSData.map(({ dailyCases }) => dailyCases),
+            data: stateData.map(({ dailyCases }) => dailyCases),
             label: "Daily New Cases",
             borderColor: "red",
             backgroundColor: "rgba(0,0,255,1)",
@@ -71,7 +106,28 @@ const USChart = () => {
         title: { display: true, text: `USA Daily New Cases` },
       }}
     />
-  );
+  ) : (
+      <Bar
+        data={{
+          labels: dailyUSData.map(({ date }) => new Date(date).toDateString()),
+          datasets: [
+            {
+              data: dailyUSData.map(({ dailyCases }) => dailyCases),
+              label: "Daily New Cases",
+              borderColor: "red",
+              backgroundColor: "rgba(0,0,255,1)",
+              fill: true,
+            },
+          ],
+        }}
+        options={{
+          title: { display: true, text: `USA Daily New Cases` },
+        }}
+      />
+    );
+
+
+
 
   return (
     <>
@@ -79,7 +135,7 @@ const USChart = () => {
       <div className={styles.container}>{barChartUSDeaths}</div>
       <div className={styles.container}>{barChartUSDailyCases}</div>
     </>
-  );
+  )
 };
 
 export default USChart;
