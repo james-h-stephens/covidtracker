@@ -5,16 +5,15 @@ import { fetchStates } from "../../api";
 
 const StatePicker = ({ handleStateChange }) => {
   const [fetchedStates, setFetchedStates] = useState([]);
- 
+
   useEffect(() => {
     const fetchAPI = async () => {
       setFetchedStates(await fetchStates());
     };
- 
+
     fetchAPI();
   }, [setFetchedStates]);
-  
-  
+
   return (
     <FormControl className={styles.formControl}>
       <NativeSelect
@@ -23,8 +22,8 @@ const StatePicker = ({ handleStateChange }) => {
         onChange={(e) => handleStateChange(e.target.value)}
       >
         <option value="">-Select State-</option>
-        {fetchedStates.map((fetchedStates) => (
-          <option key={fetchedStates.i}  value={fetchedStates.stateInitials}>
+        {fetchedStates.map((fetchedStates, i) => (
+          <option key={i} value={fetchedStates.stateInitials}>
             {fetchedStates.stateName}
           </option>
         ))}

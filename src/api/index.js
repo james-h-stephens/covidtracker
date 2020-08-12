@@ -53,59 +53,50 @@ export const fetchUSData = async () => {
     const initialUSData = await axios.get(`${sUrl}/v1/us/current.json`);
 
     const USData = initialUSData.data[0];
-     
+
     return USData;
   } catch (error) {}
 };
 
 export const fetchDailyUSData = async () => {
   try {
-    const {data} = await axios.get(`${sUrl}/v1/us/daily.json`)
-     
+    const { data } = await axios.get(`${sUrl}/v1/us/daily.json`);
+
     const reverseData = data.map((dailyUSData) => ({
       confirmed: dailyUSData.positive,
       deaths: dailyUSData.death,
       date: dailyUSData.dateChecked,
       recovered: dailyUSData.recovered,
-      dailyCases: dailyUSData.positiveIncrease
+      dailyCases: dailyUSData.positiveIncrease,
     }));
-    const modifiedData= reverseData.reverse()
+    const modifiedData = reverseData.reverse();
     return modifiedData;
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};
 export const fetchDailyStateData = async (state) => {
   try {
-    const {data} = await axios.get(`${sUrl}/v1/states/${state}/daily.json`)
- 
-    const reverseData = data.map((dailyStateData) => ({
-      state: dailyStateData.state,
-      confirmed: dailyStateData.positive,
-      deaths: dailyStateData.death,
-      date: dailyStateData.dateChecked,
-      recovered: dailyStateData.recovered,
-      dailyCases: dailyStateData.positiveIncrease
+    const  {data}  = await axios.get(`${sUrl}/v1/states/${state}/daily.json`);
+
+    const reverseData = data.map((stateData) => ({
+      confirmed: stateData.positive,
+      deaths: stateData.death,
+      date: stateData.dateChecked,
+      dailyCases: stateData.positiveIncrease,
     }));
-    const modifiedData= reverseData.reverse()
+    const modifiedData = reverseData.reverse();
     return modifiedData;
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};
 
 export const fetchStates = async () => {
   try {
-    const {data} = await axios.get(`${sUrl}/v1/states/info.json`)
-    
+    const  {data}  = await axios.get(`${sUrl}/v1/states/info.json`);
+
     const modifiedData = data.map((dailyStateData) => ({
       stateInitials: dailyStateData.state,
-      stateName: dailyStateData.name 
+      stateName: dailyStateData.name,
     }));
-     
-   
+
     return modifiedData;
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};
