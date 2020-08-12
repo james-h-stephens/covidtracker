@@ -19,7 +19,7 @@ const StatePicker = ({ handleStateChange }) => {
       <NativeSelect
         align="center"
         defaultValue=""
-        onChange={(e) => handleStateChange(e.target.value)}
+        onChange={(e) => handleStateChange({ stateCode: e.target.value, stateName: e.target.children[e.target.selectedIndex].innerText})}
       >
         <option value="">-Select State-</option>
         {fetchedStates.map((fetchedStates, i) => (

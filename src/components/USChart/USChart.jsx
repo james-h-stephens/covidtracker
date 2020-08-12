@@ -3,7 +3,7 @@ import { fetchDailyUSData } from "../../api";
 import { Bar } from "react-chartjs-2";
 import styles from "./USChart.module.css";
 
-const USChart = ({ stateData, currentState }) => {
+const USChart = ({ stateData, currentStateMetadata}) => {
   const [dailyUSData, setDailyUSData] = useState([]);
 
   useEffect(() => {

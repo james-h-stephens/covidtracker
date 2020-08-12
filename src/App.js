@@ -37,32 +37,31 @@ class App extends React.Component {
  
     this.setState({ data: fetchedData, country: country });
   };
-  handleStateChange = async (state) => {
-    if(state.length === 0){
+  handleStateChange = async (stateMetadata) => {
+    if(stateMetadata.stateCode.length === 0){
 
-      this.setState({ stateData: {}, currentState: ""});
+      this.setState({ stateData: {}, currentStateMetadata: ""});
     }else {
-    const normalizedState = state.toLowerCase();
-    const fetchedDailyStateData = await fetchDailyStateData(normalizedState);
+    stateMetadata.stateCode = stateMetadata.stateCode.toLowerCase();
+    const fetchedDailyStateData = await fetchDailyStateData(stateMetadata.stateCode);
      
-    this.setState({ stateData: fetchedDailyStateData, currentState: normalizedState});
+    this.setState({ stateData: fetchedDailyStateData, currentStateMetadata: stateMetadata});
     }
   };
   
   render() {
-    const { data, country, USData, currentState, stateData } = this.state;
+    const { data, country, USData, currentStateMetadata, stateData } = this.state;
     return (
       <div className={styles.container}>
         <img className={styles.logo} src={CovidHeader} alt="covid data"></img>
         <h1>USA</h1>
         <USCards USData={USData} />
         <StatePicker handleStateChange={this.handleStateChange} />
-        <USChart stateData={stateData} currentState={currentState}/>
+        <USChart stateData={stateData} currentStateMetadata={currentStateMetadata}/>
         <h1>World</h1>
         <Cards data={data} />
         <CountryPicker handleCountryChange={this.handleCountryChange} />
         <Chart data={data} country={country} />
-        <StateChart stateData={stateData} currentState={currentState}   />
         <a href="http://www.lukassaylor.com/">Lukas Saylor</a>
         <Typography>2020</Typography>
       </div>

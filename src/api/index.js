@@ -73,30 +73,39 @@ export const fetchDailyUSData = async () => {
     return modifiedData;
   } catch (error) {}
 };
-export const fetchDailyStateData = async (state) => {
-  try {
-    const  {data}  = await axios.get(`${sUrl}/v1/states/${state}/daily.json`);
 
-    const reverseData = data.map((stateData) => ({
-      confirmed: stateData.positive,
-      deaths: stateData.death,
-      date: stateData.dateChecked,
-      dailyCases: stateData.positiveIncrease,
-    }));
-    const modifiedData = reverseData.reverse();
-    return modifiedData;
+let stateDataCache = {};
+export const fetchDailyStateData = async (stateCode) => {
+  try {
+    if(!stateDataCache[stateCode])
+    {
+      const  {data}  = await axios.get(`${sUrl}/v1/states/${stateCode}/daily.json`);
+
+      const reverseData = data.map((stateData) => ({
+        confirmed: stateData.positive,
+        deaths: stateData.death,
+        date: stateData.dateChecked,
+        dailyCases: stateData.positiveIncrease,
+      }));
+      stateDataCache[stateCode] = reverseData.reverse();
+    }
+
+    return stateDataCache[stateCode];
   } catch (error) {}
 };
 
+let stateMetadata = null;
 export const fetchStates = async () => {
   try {
-    const  {data}  = await axios.get(`${sUrl}/v1/states/info.json`);
+    if (!stateMetadata) {
+      const  {data}  = await axios.get(`${sUrl}/v1/states/info.json`);
+      
+      stateMetadata = data.map((dailyStateData) => ({
+        stateInitials: dailyStateData.state,
+        stateName: dailyStateData.name,
+      }));
+  }
 
-    const modifiedData = data.map((dailyStateData) => ({
-      stateInitials: dailyStateData.state,
-      stateName: dailyStateData.name,
-    }));
-
-    return modifiedData;
+    return stateMetadata;
   } catch (error) {}
 };
