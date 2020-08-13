@@ -109,3 +109,9 @@ export const fetchStates = async () => {
     return stateMetadata;
   } catch (error) {}
 };
+
+export const currentStateData = async (stateCode) => {
+  try {
+    const {data:{hospitalizedCurrently, inIcuCurrently,}} = await axios.get(`${sUrl}/v1/states/${stateCode}/current.json`);
+  } catch (error) {}
+}

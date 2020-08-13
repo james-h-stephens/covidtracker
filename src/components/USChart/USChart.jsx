@@ -13,6 +13,7 @@ const USChart = ({ stateData, currentStateMetadata}) => {
     fetchUSAPI();
   }, []);
 
+ const BarColor="#A8DADC"
 
   const barChartUSCases = stateData.length ? (
     <Bar
@@ -23,13 +24,13 @@ const USChart = ({ stateData, currentStateMetadata}) => {
             data: stateData.map(({ confirmed }) => confirmed),
             label: "Infected",
             borderColor: "rgba(0, 255, 0, 1)",
-            backgroundColor: "rgba(0, 255, 0, 1)",
+            backgroundColor: `${BarColor}`,
             fill: true,
           },
         ],
       }}
       options={{
-        title: { display: true, text: `USA Cases` },
+        title: { display: true, text: `${currentStateMetadata.stateName} Cases` },
       }}
     />) : (
       <Bar
@@ -40,7 +41,7 @@ const USChart = ({ stateData, currentStateMetadata}) => {
               data: dailyUSData.map(({ confirmed }) => confirmed),
               label: "Infected",
               borderColor: "rgba(0, 255, 0, 1)",
-              backgroundColor: "rgba(0, 255, 0, 1)",
+              backgroundColor: `${BarColor}`,
               fill: true,
             },
           ],
@@ -59,13 +60,13 @@ const USChart = ({ stateData, currentStateMetadata}) => {
             data: stateData.map(({ deaths }) => deaths),
             label: "Deaths",
             borderColor: "red",
-            backgroundColor: "rgba(255,0,0,1)",
+            backgroundColor: `${BarColor}`,
             fill: true,
           },
         ],
       }}
       options={{
-        title: { display: true, text: `USA Deaths` },
+        title: { display: true, text: `${currentStateMetadata.stateName} Deaths` },
       }}
     />
   ) : (
@@ -77,7 +78,7 @@ const USChart = ({ stateData, currentStateMetadata}) => {
               data: dailyUSData.map(({ deaths }) => deaths),
               label: "Deaths",
               borderColor: "red",
-              backgroundColor: "rgba(255,0,0,1)",
+              backgroundColor: `${BarColor}`,
               fill: true,
             },
           ],
@@ -97,13 +98,13 @@ const USChart = ({ stateData, currentStateMetadata}) => {
             data: stateData.map(({ dailyCases }) => dailyCases),
             label: "Daily New Cases",
             borderColor: "red",
-            backgroundColor: "rgba(0,0,255,1)",
+            backgroundColor: `${BarColor}`,
             fill: true,
           },
         ],
       }}
       options={{
-        title: { display: true, text: `USA Daily New Cases` },
+        title: { display: true, text: `${currentStateMetadata.stateName} Daily New Cases` },
       }}
     />
   ) : (
@@ -115,7 +116,7 @@ const USChart = ({ stateData, currentStateMetadata}) => {
               data: dailyUSData.map(({ dailyCases }) => dailyCases),
               label: "Daily New Cases",
               borderColor: "red",
-              backgroundColor: "rgba(0,0,255,1)",
+              backgroundColor: `${BarColor}`,
               fill: true,
             },
           ],
