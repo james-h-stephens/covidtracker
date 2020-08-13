@@ -8,9 +8,14 @@ import {
   StatePicker,
   Navbar,
 } from "./components";
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import styles from "./App.module.css";
-import { fetchData, fetchUSData, fetchDailyStateData } from "./api";
+import {
+  fetchData,
+  fetchUSData,
+  fetchDailyStateData,
+  currentStateData,
+} from "./api";
 import { Typography } from "@material-ui/core";
 
 class App extends React.Component {
@@ -20,6 +25,7 @@ class App extends React.Component {
     USData: {},
     stateData: {},
     currentState: "",
+    currentStateData: {},
   };
 
   async componentDidMount() {
@@ -37,16 +43,24 @@ class App extends React.Component {
   };
   handleStateChange = async (stateMetadata) => {
     if (stateMetadata.stateCode.length === 0) {
-      this.setState({ stateData: {}, currentStateMetadata: "" });
+      this.setState({
+        stateData: {},
+        currentStateMetadata: "",
+        currentStateData: {},
+      });
     } else {
       stateMetadata.stateCode = stateMetadata.stateCode.toLowerCase();
       const fetchedDailyStateData = await fetchDailyStateData(
+        stateMetadata.stateCode
+      );
+      const fetchedCurrentStateData = await currentStateData(
         stateMetadata.stateCode
       );
 
       this.setState({
         stateData: fetchedDailyStateData,
         currentStateMetadata: stateMetadata,
+        currentStateData: fetchedCurrentStateData,
       });
     }
   };
@@ -58,6 +72,7 @@ class App extends React.Component {
       USData,
       currentStateMetadata,
       stateData,
+      currentStateData,
     } = this.state;
     return (
       <div className={styles.container}>
@@ -67,7 +82,11 @@ class App extends React.Component {
             <h1>
               {currentStateMetadata ? currentStateMetadata.stateName : "USA"}
             </h1>
-            <USCards USData={USData} stateData={stateData} />
+            <USCards
+              USData={USData}
+              currentStateData={currentStateData}
+              currentStateMetadata={currentStateMetadata}
+            />
             <StatePicker handleStateChange={this.handleStateChange} />
             <USChart
               stateData={stateData}

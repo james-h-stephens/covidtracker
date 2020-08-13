@@ -4,7 +4,6 @@
     width: 90%;
     background-color: white;
     margin-bottom: 5vh;
-    border-top: solid black 5px;
-    border-bottom: solid black 5px;
+    border : solid #1D3557 5px;
     border-radius: 5px;
 }
