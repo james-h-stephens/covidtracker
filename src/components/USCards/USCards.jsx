@@ -32,10 +32,10 @@ const USCards = ({
         >
           <CardContent>
             <Typography color="textSecondary" gutterBottom>
-              USA Infected
+              {currentStateMetadata ? (`${currentStateMetadata.stateName} Infected`):("USA Infected")}
             </Typography>
             <Typography variant="h5">
-              <CountUp start={0} end={positive} duration={2.5} separator="," />
+              <CountUp start={0} end={currentStateMetadata ?(currentStateData.statePositive):(positive)} duration={2.5} separator="," />
             </Typography>
             <Typography color="textSecondary">
               {new Date(dateChecked).toDateString()}
@@ -54,10 +54,10 @@ const USCards = ({
         >
           <CardContent>
             <Typography color="textSecondary" gutterBottom>
-              USA Recovered
+            {currentStateMetadata ? (`${currentStateMetadata.stateName} Recovered`):("USA Recovered")}
             </Typography>
             <Typography variant="h5">
-              <CountUp start={0} end={recovered} duration={2.5} separator="," />
+              <CountUp start={0} end={currentStateMetadata ?(currentStateData.stateRecovered):(recovered)} duration={2.5} separator="," />
             </Typography>
             <Typography color="textSecondary">
               {new Date(dateChecked).toDateString()}
@@ -76,10 +76,10 @@ const USCards = ({
         >
           <CardContent>
             <Typography color="textSecondary" gutterBottom>
-              USA Deaths
+            {currentStateMetadata ? (`${currentStateMetadata.stateName} Deaths`):("USA Deaths")}
             </Typography>
             <Typography variant="h5">
-              <CountUp start={0} end={death} duration={2.5} separator="," />
+              <CountUp start={0} end={currentStateMetadata ?(currentStateData.stateDeath):(death)} duration={2.5} separator="," />
             </Typography>
             <Typography color="textSecondary">
               {new Date(dateChecked).toDateString()}
