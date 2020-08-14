@@ -82,12 +82,12 @@ class App extends React.Component {
             <h1>
               {currentStateMetadata ? currentStateMetadata.stateName : "USA"}
             </h1>
+            <StatePicker handleStateChange={this.handleStateChange} />
             <USCards
               USData={USData}
               currentStateData={currentStateData}
               currentStateMetadata={currentStateMetadata}
             />
-            <StatePicker handleStateChange={this.handleStateChange} />
             <USChart
               stateData={stateData}
               currentStateMetadata={currentStateMetadata}
@@ -95,8 +95,8 @@ class App extends React.Component {
           </Route>
           <Route path="/world" strict exact>
             <h1>{country ? `${country}` : "World"}</h1>
-            <Cards data={data} />
             <CountryPicker handleCountryChange={this.handleCountryChange} />
+            <Cards data={data} />
             <Chart data={data} country={country} />
           </Route>
           <a href="http://www.lukassaylor.com/">Lukas Saylor</a>

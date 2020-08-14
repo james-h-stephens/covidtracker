@@ -1,26 +1,39 @@
 .container {
-    margin: 20px 0;
+  margin: 2%;
 }
 
 .card {
-    margin: 1% !important;
-    background-color: #A8DADC !important;
+  margin: 1% !important;
+  background-color: #a8dadc !important;
 }
 
 .infected {
-    border-bottom: 10px solid #1D3557;
+  border-bottom: 10px solid #1d3557;
 }
 
 .recovered {
-    border-bottom: 10px solid #457B9D;
+  border-bottom: 10px solid #457b9d;
 }
 
 .deaths {
-    border-bottom: 10px solid #E63946;
+  border-bottom: 10px solid #e63946;
+}
+
+.stateTable {
+  width: 79% !important;
+  background-color: #a8dadc !important;
+  margin: 1%;
+}
+
+.tableHead {
+    background-color: #457b9d !important;
 }
 
 @media only screen and (max-width: 1000px) {
-    .card {
-      width: 75% !important;
-    }
+  .card {
+    width: 75% !important;
   }
+  .stateTable {
+      width: 84% !important;
+  }
+}

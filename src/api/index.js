@@ -114,7 +114,7 @@ export const fetchStates = async () => {
 export const currentStateData = async (stateCode) => {
   try {
     const {
-      data: { positive, recovered, death, dateChecked },
+      data: { positive, recovered, death, dateChecked, negative, hospitalizedCurrently, inIcuCurrently, onVentilatorCurrently, },
     } = await axios.get(`${sUrl}/v1/states/${stateCode}/current.json`);
     
     return {
@@ -122,6 +122,11 @@ export const currentStateData = async (stateCode) => {
       stateRecovered: recovered,
       stateDeath: death,
       stateDateChecked: dateChecked,
+      negative,
+      hospitalizedCurrently, 
+      inIcuCurrently, 
+      onVentilatorCurrently
+
     };
   } catch (error) {}
 };
