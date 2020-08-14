@@ -1,8 +1,18 @@
 import axios from "axios";
+import { NoNegativeCasesFilter, NoOlderThanXDaysFilter } from "./Filters";
 
 const url = "https://covid19.mathdro.id/api";
 
 const sUrl = "https://api.covidtracking.com";
+
+const dataFilters = [];
+
+export const registerFilter = (filter) => {
+  dataFilters.push(filter);
+};
+
+registerFilter(new NoNegativeCasesFilter());
+registerFilter(new NoOlderThanXDaysFilter({ numberOfDays: 30 }));
 
 export const fetchData = async (country) => {
   let changeableUrl = url;
@@ -69,7 +79,13 @@ export const fetchDailyUSData = async () => {
       recovered: dailyUSData.recovered,
       dailyCases: dailyUSData.positiveIncrease,
     }));
-    const modifiedData = reverseData.reverse();
+
+    let modifiedData = reverseData.reverse();
+
+    for (const filter of dataFilters) {
+      modifiedData = filter.applyFilter(modifiedData);
+    }
+
     return modifiedData;
   } catch (error) {}
 };
@@ -78,9 +94,7 @@ let stateDataCache = {};
 export const fetchDailyStateData = async (stateCode) => {
   try {
     if (!stateDataCache[stateCode]) {
-      const { data } = await axios.get(
-        `${sUrl}/v1/states/${stateCode}/daily.json`
-      );
+      const { data } = await axios.get(`${sUrl}/v1/states/${stateCode}/daily.json`);
 
       const reverseData = data.map((stateData) => ({
         confirmed: stateData.positive,
@@ -88,10 +102,16 @@ export const fetchDailyStateData = async (stateCode) => {
         date: stateData.dateChecked,
         dailyCases: stateData.positiveIncrease,
       }));
+
       stateDataCache[stateCode] = reverseData.reverse();
     }
 
-    return stateDataCache[stateCode];
+    let filteredData = stateDataCache[stateCode];
+
+    for (const filter of dataFilters) {
+      filteredData = filter.applyFilter(filteredData);
+    }
+    return filteredData;
   } catch (error) {}
 };
 
@@ -114,19 +134,18 @@ export const fetchStates = async () => {
 export const currentStateData = async (stateCode) => {
   try {
     const {
-      data: { positive, recovered, death, dateChecked, negative, hospitalizedCurrently, inIcuCurrently, onVentilatorCurrently, },
+      data: { positive, recovered, death, dateChecked, negative, hospitalizedCurrently, inIcuCurrently, onVentilatorCurrently },
     } = await axios.get(`${sUrl}/v1/states/${stateCode}/current.json`);
-    
+
     return {
       statePositive: positive,
       stateRecovered: recovered,
       stateDeath: death,
       stateDateChecked: dateChecked,
       negative,
-      hospitalizedCurrently, 
-      inIcuCurrently, 
-      onVentilatorCurrently
-
+      hospitalizedCurrently,
+      inIcuCurrently,
+      onVentilatorCurrently,
     };
   } catch (error) {}
 };

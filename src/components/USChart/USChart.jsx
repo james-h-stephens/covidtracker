@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { fetchDailyUSData } from "../../api";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
+import { fetchDailyUSData } from "../../api";
 import styles from "./USChart.module.css";
 
 const USChart = ({ stateData, currentStateMetadata }) => {

@@ -1,22 +1,9 @@
-import React from "react";
-import {
-  Cards,
-  Chart,
-  CountryPicker,
-  USCards,
-  USChart,
-  StatePicker,
-  Navbar,
-} from "./components";
-import { HashRouter as Router, Route } from "react-router-dom";
-import styles from "./App.module.css";
-import {
-  fetchData,
-  fetchUSData,
-  fetchDailyStateData,
-  currentStateData,
-} from "./api";
 import { Typography } from "@material-ui/core";
+import React from "react";
+import { HashRouter as Router, Route } from "react-router-dom";
+import { currentStateData, fetchDailyStateData, fetchData, fetchUSData } from "./api";
+import styles from "./App.module.css";
+import { Cards, Chart, CountryPicker, Navbar, StatePicker, USCards, USChart } from "./components";
 
 class App extends React.Component {
   state = {
@@ -50,12 +37,8 @@ class App extends React.Component {
       });
     } else {
       stateMetadata.stateCode = stateMetadata.stateCode.toLowerCase();
-      const fetchedDailyStateData = await fetchDailyStateData(
-        stateMetadata.stateCode
-      );
-      const fetchedCurrentStateData = await currentStateData(
-        stateMetadata.stateCode
-      );
+      const fetchedDailyStateData = await fetchDailyStateData(stateMetadata.stateCode);
+      const fetchedCurrentStateData = await currentStateData(stateMetadata.stateCode);
 
       this.setState({
         stateData: fetchedDailyStateData,
@@ -66,32 +49,16 @@ class App extends React.Component {
   };
 
   render() {
-    const {
-      data,
-      country,
-      USData,
-      currentStateMetadata,
-      stateData,
-      currentStateData,
-    } = this.state;
+    const { data, country, USData, currentStateMetadata, stateData, currentStateData } = this.state;
     return (
       <div className={styles.container}>
         <Router>
           <Navbar USData={USData} />
           <Route path="/" strict exact>
-            <h1>
-              {currentStateMetadata ? currentStateMetadata.stateName : "USA"}
-            </h1>
+            <h1>{currentStateMetadata ? currentStateMetadata.stateName : "USA"}</h1>
             <StatePicker handleStateChange={this.handleStateChange} />
-            <USCards
-              USData={USData}
-              currentStateData={currentStateData}
-              currentStateMetadata={currentStateMetadata}
-            />
-            <USChart
-              stateData={stateData}
-              currentStateMetadata={currentStateMetadata}
-            />
+            <USCards USData={USData} currentStateData={currentStateData} currentStateMetadata={currentStateMetadata} />
+            <USChart stateData={stateData} currentStateMetadata={currentStateMetadata} />
           </Route>
           <Route path="/world" strict exact>
             <h1>{country ? `${country}` : "World"}</h1>
