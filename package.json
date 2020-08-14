@@ -1,5 +1,6 @@
 {
   "name": "covidapp",
+  "homepage": "http://lukesaylor.github.io/covidtracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
