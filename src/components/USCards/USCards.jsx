@@ -152,7 +152,7 @@ const USCards = ({
                 <Typography variant="h5">
                   <CountUp
                     start={0}
-                    end={currentStateData.statePositive}
+                    end={currentStateData.stateDeath}
                     duration={2.5}
                     separator=","
                   />
