@@ -9,12 +9,12 @@ const Navbar = () => {
     <div className={styles.Navbar}>
       <img className={styles.logo} src={CovidHeader} alt="covid data"></img>
       <div className={styles.ButtonContainer}>
-        <Link className={styles.Link} to="/usa">
+        <Link className={styles.Link} to="/">
           <Button variant="contained" color="secondary">
             U.S.A.
           </Button>
         </Link>
-        <Link className={styles.Link} to="/">
+        <Link className={styles.Link} to="/world">
           <Button variant="contained" color="secondary">
             World
           </Button>

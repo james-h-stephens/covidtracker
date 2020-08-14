@@ -24,3 +24,13 @@
 .Link {
     text-decoration: none;
 }
+
+@media only screen and (max-width: 1000px) {
+  .ButtonContainer {
+    flex-direction: row;
+    
+  }
+  .Navbar {
+    align-items: center;
+  }
+}

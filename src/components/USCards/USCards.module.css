@@ -18,3 +18,9 @@
 .deaths {
     border-bottom: 10px solid #E63946;
 }
+
+@media only screen and (max-width: 1000px) {
+    .card {
+      width: 75% !important;
+    }
+  }

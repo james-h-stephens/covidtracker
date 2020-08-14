@@ -1,9 +1,17 @@
 .container {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    background-color: white;
-    margin-bottom: 5vh;
-    border : solid #1D3557 5px;
-    border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  background-color: white;
+  margin-bottom: 5vh;
+  border: solid #1d3557 5px;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    width: 100%;
+    border: none;
+    overflow: scroll;
+  }
 }

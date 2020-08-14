@@ -19,7 +19,7 @@ const USCards = ({
         <Grid
           item
           component={Card}
-          xs={12}
+          xs={10}
           md={3}
           className={cx(styles.card, styles.infected)}
         >
@@ -41,7 +41,7 @@ const USCards = ({
         <Grid
           item
           component={Card}
-          xs={12}
+          xs={10}
           md={3}
           className={cx(styles.card, styles.recovered)}
         >
@@ -63,7 +63,7 @@ const USCards = ({
         <Grid
           item
           component={Card}
-          xs={12}
+          xs={10}
           md={3}
           className={cx(styles.card, styles.deaths)}
         >
@@ -87,7 +87,7 @@ const USCards = ({
             <Grid
               item
               component={Card}
-              xs={12}
+              xs={10}
               md={3}
               className={cx(styles.card, styles.infected)}
             >
@@ -114,7 +114,7 @@ const USCards = ({
             <Grid
               item
               component={Card}
-              xs={12}
+              xs={10}
               md={3}
               className={cx(styles.card, styles.recovered)}
             >
@@ -141,7 +141,7 @@ const USCards = ({
             <Grid
               item
               component={Card}
-              xs={12}
+              xs={10}
               md={3}
               className={cx(styles.card, styles.deaths)}
             >

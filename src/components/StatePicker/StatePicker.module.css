@@ -1,5 +1,11 @@
 .formControl {
-    width: 15%;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
+  width: 15%;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+@media only screen and (max-width: 1000px) {
+  .formControl {
+    width: 90%;
+  }
 }

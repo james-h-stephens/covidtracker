@@ -78,7 +78,7 @@ class App extends React.Component {
       <div className={styles.container}>
         <Router>
           <Navbar USData={USData} />
-          <Route path="/usa">
+          <Route path="/" strict exact>
             <h1>
               {currentStateMetadata ? currentStateMetadata.stateName : "USA"}
             </h1>
@@ -93,7 +93,7 @@ class App extends React.Component {
               currentStateMetadata={currentStateMetadata}
             />
           </Route>
-          <Route path="/" strict exact>
+          <Route path="/world" strict exact>
             <h1>{country ? `${country}` : "World"}</h1>
             <Cards data={data} />
             <CountryPicker handleCountryChange={this.handleCountryChange} />
